@@ -33,6 +33,19 @@
     .price-card button{padding:0.8rem 2rem;font-size:1rem;border:none;border-radius:5px;background:#f5c518;color:#000;cursor:pointer;font-weight:bold;transition:0.3s}
     .price-card button:hover{background:#fff;color:#000}
 
+    /* Carousel */
+    .carousel{position:relative;overflow:hidden;width:100%;max-width:900px;margin:3rem auto;text-align:center}
+    .carousel h2{color:#f5c518;margin-bottom:2rem}
+    .carousel-track{display:flex;transition:transform 0.5s ease}
+    .character{min-width:100%;padding:2rem}
+    .character img{width:250px;height:350px;object-fit:cover;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,0.6)}
+    .character h3{margin-top:1rem;color:#f5c518}
+    .character p{font-size:0.9rem;margin-top:0.5rem}
+    .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.6);color:#f5c518;border:none;padding:1rem;cursor:pointer;border-radius:50%;font-size:1.5rem}
+    .carousel-btn:hover{background:#f5c518;color:#000}
+    .prev{left:10px}
+    .next{right:10px}
+
     footer{text-align:center;padding:2rem;background:#111;color:#aaa;margin-top:2rem}
   </style>
 </head>
@@ -73,6 +86,30 @@
     </div>
   </section>
 
+  <!-- Character Carousel -->
+  <section class="carousel">
+    <h2>Meet the Characters</h2>
+    <button class="carousel-btn prev">&#10094;</button>
+    <div class="carousel-track">
+      <div class="character">
+        <img src="https://wallpapercave.com/wp/wp11440013.jpg" alt="Rhaenyra Targaryen">
+        <h3>Princess Rhaenyra Targaryen</h3>
+        <p>The Realm's Delight, heir to the Iron Throne, strong and determined.</p>
+      </div>
+      <div class="character">
+        <img src="https://wallpapercave.com/wp/wp11440032.jpg" alt="Daemon Targaryen">
+        <h3>Prince Daemon Targaryen</h3>
+        <p>The Rogue Prince, fearless warrior, rider of Caraxes the dragon.</p>
+      </div>
+      <div class="character">
+        <img src="https://wallpapercave.com/wp/wp11440020.jpg" alt="Alicent Hightower">
+        <h3>Alicent Hightower</h3>
+        <p>Queen of the Seven Kingdoms, driven by duty and family legacy.</p>
+      </div>
+    </div>
+    <button class="carousel-btn next">&#10095;</button>
+  </section>
+
   <section class="pricing">
     <h2 style="color:#f5c518;margin-bottom:2rem">Choose Your Plan</h2>
     <div class="price-card">
@@ -86,5 +123,27 @@
   <footer>
     <p>&copy; 2025 House of the Dragon | HBO</p>
   </footer>
+
+  <script>
+    const track = document.querySelector('.carousel-track');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let index = 0;
+
+    function updateCarousel(){
+      track.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    nextBtn.addEventListener('click',()=>{
+      index = (index+1) % track.children.length;
+      updateCarousel();
+    });
+
+    prevBtn.addEventListener('click',()=>{
+      index = (index-1+track.children.length) % track.children.length;
+      updateCarousel();
+    });
+  </script>
 </body>
 </html>
+
