@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ThronesRealm — Official Fan Experience</title>
+<style>
+  :root{
+    --bg:#06060a; --card:#0f1115; --accent:#c0392b; --muted:#9aa3b2;
+    --glass: rgba(255,255,255,0.03);
+    --radius:14px; --maxw:1200px;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background: linear-gradient(180deg,#05060a 0%, #0b0c10 60%);
+    color:#e6eef6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.45;
+  }
+
+  /* header */
+  header{
+    max-width:var(--maxw);
+    margin:24px auto;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .brand{
+    display:flex; gap:12px; align-items:center;
+  }
+  .logo{
+    width:48px; height:48px; border-radius:10px; background:linear-gradient(135deg,#1f2a44,#3b2a2a);
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.6);
+  }
+  nav a{color:var(--muted); text-decoration:none; margin-left:16px; font-weight:600; font-size:14px}
+  nav a:hover{color:#fff}
+
+  /* hero */
+  .hero{
+    max-width:var(--maxw);
+    margin:10px auto 28px;
+    padding:36px 20px;
+    border-radius:20px;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.6)),
+      url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.6);
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:20px;
+    align-items:center;
+  }
+  @media(min-width:900px){ .hero { grid-template-columns: 1fr 420px; } }
+
+  .hero-left h1{
+    font-size:clamp(28px,4vw,44px);
+    margin:0 0 12px 0;
+    letter-spacing:-0.02em;
+  }
+  .sub{color:var(--muted); margin-bottom:18px; max-width:60ch}
+  .cta-row{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+  .btn{
+    border:0; cursor:pointer; padding:12px 18px; border-radius:999px; font-weight:700;
+    background: linear-gradient(90deg,var(--accent), #ff6b61); color:#fff; box-shadow:0 8px 30px rgba(192,57,43,0.14);
+  }
+  .btn.secondary{background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--muted); padding:10px 16px}
+
+  .hero-right{
+    display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center;
+    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding:18px; border-radius:14px;
+  }
+  .poster-large{width:100%; max-width:360px; border-radius:10px; box-shadow:0 14px 40px rgba(0,0,0,0.6);}
+
+  /* posters grid */
+  .section{max-width:var(--maxw); margin:32px auto; padding:0 20px}
+  .section h2{margin:0 0 14px; font-size:20px}
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--card);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow: 0 8px 26px rgba(2,6,23,0.6);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{ transform: translateY(-8px); box-shadow:0 22px 60px rgba(0,0,0,0.7) }
+  .card img{display:block; width:100%; height:210px; object-fit:cover}
+  .card .meta{padding:12px}
+  .card .title{font-weight:700; font-size:14px}
+  .card .meta p{color:var(--muted); margin-top:6px; font-size:13px}
+
+  /* features */
+  .features{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap:16px;
+    margin-top:18px;
+  }
+  .feature{
+    background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+    padding:18px; border-radius:12px;
+    text-align:left;
+  }
+  .feature h3{margin:0 0 8px; color:#fff}
+  .feature p{color:var(--muted); margin:0; font-size:14px}
+
+  /* pricing */
+  .pricing{
+    max-width:var(--maxw); margin:30px auto; padding:24px 20px;
+    display:flex; gap:20px; flex-direction:column;
+  }
+  @media(min-width:900px){ .pricing{flex-direction:row; align-items:stretch} }
+  .plan{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding:22px; border-radius:12px; flex:1; display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .plan .price{font-size:28px; font-weight:800; margin:12px 0; color:#ffd9d6}
+  .plan p{color:var(--muted)}
+
+  /* small footer */
+  footer{max-width:var(--maxw); margin:28px auto 48px; padding:0 20px; color:var(--muted); font-size:13px; text-align:center}
+
+  /* trailer modal */
+  .modal{
+    position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:60;
+    background:linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.85));
+  }
+  .modal.active{display:flex}
+  .modal .box{width:clamp(300px,90vw,1000px); aspect-ratio:16/9; background:#000; border-radius:12px; overflow:hidden; position:relative}
+  .close{
+    position:absolute; right:10px; top:10px; background:rgba(0,0,0,0.5); border-radius:8px; padding:6px 8px; cursor:pointer; color:#fff; font-weight:700;
+  }
+
+  /* tiny helpers */
+  .muted{color:var(--muted)}
+  .small{font-size:13px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">TR</div>
+    <div>
+      <div style="font-weight:800">ThronesRealm</div>
+      <div style="font-size:12px;color:var(--muted)">The official fan experience</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#popular">Popular</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#join" class="small muted">Join</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-left">
+    <h1>Enter the Realm — Relive the Saga</h1>
+    <p class="sub">Stream exclusive behind-the-scenes content, episodes collections, interactive maps, and a curated fan archive — all in one place.</p>
+    <div class="cta-row">
+      <button class="btn" id="watchNow">Watch Trailer</button>
+      <button class="btn secondary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Subscribe</button>
+      <span class="small muted" style="align-self:center">Starts at <strong>₹299/month</strong></span>
+    </div>
+  </div>
+
+  <div class="hero-right" aria-hidden="false">
+    <img class="poster-large" src="https://images.unsplash.com/photo-1542204625-826f3a7a0c0b?auto=format&fit=crop&w=800&q=60" alt="Thrones poster">
+    <div class="small muted">Exclusive: Companion documentaries · Fan features · High-res stills</div>
+  </div>
+</section>
+
+<!-- POPULAR / POSTERS -->
+<section id="popular" class="section">
+  <h2>Featured Collections</h2>
+  <div class="grid" aria-label="Movie posters">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=800&q=60" alt="Season 1">
+      <div class="meta">
+        <div class="title">The North Rises</div>
+        <p class="muted">Curated episodes & extras</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=60" alt="Season 2">
+      <div class="meta">
+        <div class="title">Clash of Crowns</div>
+        <p class="muted">Extended battle sequences</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1543965174-3f39e4dfe0c6?auto=format&fit=crop&w=800&q=60" alt="Feature">
+      <div class="meta">
+        <div class="title">Beyond the Wall</div>
+        <p class="muted">Documentary & lore</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1501973801540-537f08ccae7f?auto=format&fit=crop&w=800&q=60" alt="Feature">
+      <div class="meta">
+        <div class="title">The Royal Court</div>
+        <p class="muted">Character deep-dives</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="section">
+  <h2>Why ThronesRealm</h2>
+  <div class="features">
+    <div class="feature">
+      <h3>360° Lore Archive</h3>
+      <p>Maps, family trees, timelines and annotated episode guides — perfect for any fan who wants depth.</p>
+    </div>
+    <div class="feature">
+      <h3>Exclusive Documentaries</h3>
+      <p>Behind-the-scenes videos, interviews, and production notes from the creators and cast.</p>
+    </div>
+    <div class="feature">
+      <h3>Ad-free Streaming</h3>
+      <p>High quality streaming with adaptive bitrate and offline downloads for premium plans.</p>
+    </div>
+    <div class="feature">
+      <h3>Community Hub</h3>
+      <p>Fan forums, watch-parties, and curated playlists created by the community.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="pricing">
+  <div class="plan">
+    <div>
+      <div style="font-weight:800">Starter</div>
+      <div class="price">₹299 <span class="small muted">/ month</span></div>
+      <p class="muted">Stream on 1 device · Access to all episodes · Standard quality</p>
+    </div>
+    <div style="margin-top:18px">
+      <button class="btn" onclick="openJoin('Starter')">Get Starter</button>
+    </div>
+  </div>
+
+  <div class="plan">
+    <div>
+      <div style="font-weight:800">Realm</div>
+      <div class="price">₹499 <span class="small muted">/ month</span></div>
+      <p class="muted">4K streaming · Multiple devices · Exclusive extras</p>
+    </div>
+    <div style="margin-top:18px">
+      <button class="btn" onclick="openJoin('Realm')">Get Realm</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div id="join" class="small muted">© 2025 ThronesRealm • Fan-run archive and companion experience. Not affiliated with original creators. • Privacy · Terms</div>
+</footer>
+
+<!-- Trailer Modal -->
+<div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="box" role="document">
+    <button class="close" onclick="closeModal()">✕</button>
+    <!-- use an embed or video link here -->
+    <iframe id="trailer" width="100%" height="100%" src="" title="Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+  // Smooth scroll for nav anchors (modern browsers)
+  document.querySelectorAll('nav a').forEach(a=>{
+    if(a.hash){
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        document.querySelector(a.hash)?.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    }
+  });
+
+  // Trailer modal behavior
+  const modal = document.getElementById('modal');
+  const trailer = document.getElementById('trailer');
+
+  document.getElementById('watchNow').addEventListener('click', ()=>{
+    // example YouTube embed (replace with any link)
+    trailer.src = "https://www.youtube.com/embed/ysz5S6PUM-U?autoplay=1&rel=0";
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden','false');
+  });
+
+  function closeModal(){
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden','true');
+    trailer.src = "";
+  }
+
+  // simple "join" action (replace with real flow)
+  function openJoin(plan){
+    const ok = confirm('Subscribe to ' + plan + ' for this fan-experience?');
+    if(ok) {
+      alert('Thanks! Checkout flow would open (demo).');
+    }
+  }
+
+  // close modal on Escape
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+  });
+</script>
+</body>
+</html>
